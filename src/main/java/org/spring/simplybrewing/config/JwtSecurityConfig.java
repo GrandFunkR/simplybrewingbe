@@ -11,7 +11,6 @@ import org.spring.simplybrewing.authentication.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -28,8 +27,6 @@ import java.util.Arrays;
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenService tokenService;
-
     private static final String[] AUTH_WHITELIST = {
             // -- swagger ui
             /*"/swagger-resources/**",
@@ -37,17 +34,18 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/webjars/**",*/
             // -- h2 database console
-           /* "/h2-console/**",
-            "/*.js",
-            "/**",
-            "/api/**",*/
+            /* "/h2-console/**",
+             "/*.js",
+             "/**",
+             "/api/**",*/
             "/api/auth/login",
-            "/api//auth/restore-pass",
-             "/api//auth/sign-up",
-              "/api//auth/request-pass",
-               "/api//auth/sign-out",
-                "/api//auth/refresh-token"
+            "/api/auth/restore-pass",
+            "/api/auth/sign-up",
+            "/api/auth/request-pass",
+            "/api/auth/sign-out",
+            "/api/auth/refresh-token"
     };
+    private final TokenService tokenService;
 
     /**
      * Instantiates a new Jwt security config.
