@@ -31,9 +31,14 @@ public class JwtTokenFilter extends GenericFilterBean {
         this.tokenService = tokenService;
     }
 
-    private static final List<String> URI_TO_SKIP = Arrays.asList( "/api/auth/refresh-token"
-            , "/api/auth/login"
-            , "/api/auth/sign-out");
+    private static final List<String> AUTH_WHITELIST = Arrays.asList(
+            "/api/auth/login",
+            "/api/auth/restore-pass",
+            "/api/auth/sign-up",
+            "/api/auth/request-pass",
+            "/api/auth/sign-out",
+            "/api/auth/refresh-token");
+
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
@@ -44,7 +49,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         try {
             String path = ((HttpServletRequest) req).getRequestURI();
 
-            if (URI_TO_SKIP.contains(path)) {
+            if (AUTH_WHITELIST.contains(path)) {
                 filterChain.doFilter(req, res);
                 return;
             }

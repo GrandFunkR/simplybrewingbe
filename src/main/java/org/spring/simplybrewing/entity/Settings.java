@@ -19,7 +19,7 @@ public class Settings implements Serializable {
     public static final long serialVersionUID = 2168089762510982363L;
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public Long id;
 

@@ -4,24 +4,30 @@
  * See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
  */
 
-package org.spring.simplybrewing.role;
+package org.spring.simplybrewing.service;
 
 import org.spring.simplybrewing.entity.Role;
+import org.spring.simplybrewing.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Role service.
+ */
 @Service
 public class RoleService {
 
+    @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
 
+    /**
+     * Gets default role.
+     *
+     * @return the default role
+     */
     public Role getDefaultRole() {
-        return roleRepository.findDefault();
+        return roleRepository.findByName("USER").orElseThrow();
     }
 
 }

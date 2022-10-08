@@ -15,8 +15,6 @@ import org.spring.simplybrewing.entity.Settings;
 import org.spring.simplybrewing.entity.User;
 import org.spring.simplybrewing.mapper.UserMapper;
 import org.spring.simplybrewing.repository.UserRepository;
-import org.spring.simplybrewing.role.RoleService;
-import org.spring.simplybrewing.service.SettingsService;
 import org.spring.simplybrewing.user.ChangePasswordRequest;
 import org.spring.simplybrewing.user.UserContextHolder;
 import org.spring.simplybrewing.user.exception.UserAlreadyExistsException;
@@ -33,7 +31,6 @@ import java.util.HashSet;
 
 @Service
 public class UserService {
-
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private RoleService roleService;
@@ -179,7 +176,6 @@ public class UserService {
         String encodedPassword = encodePassword(signUpDTO.getPassword());
         user.setPasswordHash(encodedPassword);
         user.setRoles(new HashSet<>(Collections.singletonList(roleService.getDefaultRole())));
-        //user.setSettings(settingsService.findByThemeName("default"));
         user.setSettings(Settings.builder().themeName("default").build());
         return user;
     }

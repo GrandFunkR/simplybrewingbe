@@ -1,7 +1,7 @@
 
 
 drop TABLE IF EXISTS hops;
-drop TABLE IF EXISTS user_role;
+drop TABLE IF EXISTS user_roles;
 drop TABLE IF EXISTS role;
 drop TABLE IF EXISTS user;
 drop TABLE IF EXISTS settings;
@@ -51,13 +51,21 @@ CREATE TABLE `measurement_units` (
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) DEFAULT NULL,
-  last_name varchar(255) DEFAULT NULL,
-  user_name varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  password_hash varchar(255) DEFAULT NULL,
-  is_deleted boolean,
-  settings_id int(11),
+  `age` int(11) DEFAULT NULL,
+  `address_city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_deleted` bit(1) NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address_lat` double DEFAULT NULL,
+  `address_lng` double DEFAULT NULL,
+  `password_hash` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_street` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` timestamp,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_zip_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -67,13 +75,13 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `user_role` (
+CREATE TABLE `user_roles` (
   `user_id` bigint(20) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
-  KEY `fk_user_role_roleid_idx` (`role_id`),
-  CONSTRAINT `fk_user_role_roleid` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_role_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_user_roles_roleid_idx` (`role_id`),
+  CONSTRAINT `fk_user_roles_roleid` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_roles_userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
